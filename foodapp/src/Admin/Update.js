@@ -82,7 +82,12 @@ const navigate=useNavigate()
 
 
 <form onSubmit={updatefn}>
-
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+    //   height: '100vh' 
+    }}>
     <div id='updt1'>
         <div><h2 id='updt2'>Update Product</h2></div>
         <div id='ul1'>
@@ -109,6 +114,7 @@ const navigate=useNavigate()
             
                 <button type='submit' className="btn btn-danger" id='btn33'>Update</button>
             
+        </div>
         </div>
     </div></form>
 

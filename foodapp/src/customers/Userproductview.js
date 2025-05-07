@@ -1,113 +1,109 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 function Userproductview() {
-  let id = useParams()
+  let id = useParams();
   const [usrid, setusrid] = useState({
-    userid: localStorage.getItem("logid")
+    userid: localStorage.getItem("logid"),
+  });
 
-  })
+  const [count, setCount] = useState(1);
+  const [finprice, setfinprice] = useState("");
 
-  const [count, setCount] = useState(1)
-  const [finprice, setfinprice] = useState("")
-
-
-  const [foodadd, setfoodadd] = useState({})
+  const [foodadd, setfoodadd] = useState({});
 
   const [placeorder, setplaceorder] = useState({
     stockid: id.id,
-    userid: localStorage.getItem('logid'),
-    Quantity: '',
-    Paymenttype: '',
-    Credno:'',
-    Finaddress:'',
+    userid: localStorage.getItem("logid"),
+    Quantity: "",
+    Paymenttype: "",
+    Credno: "",
+    Finaddress: "",
   });
-const navigate=useNavigate()
+  const navigate = useNavigate();
 
   //Increment decrement function for quantity
   const IncrementItem = () => {
-    setCount(count + 1)
-    setplaceorder({ ...placeorder, Quantity: count })
-
-  }
+    setCount(count + 1);
+    setplaceorder({ ...placeorder, Quantity: count });
+  };
   const DecrementItem = () => {
-    setCount(count - 1)
-    setplaceorder({ ...placeorder, Quantity: count })
-
     if (count <= 1) {
-      alert("no product")
+      alert("Minimum quantity is 1");
       return;
     }
-    setCount(count - 1);
-    
-  }
-
+    const newCount = count - 1;
+    setCount(newCount);
+    setplaceorder({ ...placeorder, Quantity: newCount });
+  };
   //set price according to count
 
   useEffect(() => {
     if (count >= 1) {
-      setfinprice(parseInt(foodadd.Price) * parseInt(count))
+      setfinprice(parseInt(foodadd.Price) * parseInt(count));
+    } else if (count == 1) {
+      setfinprice(parseInt(foodadd.price));
+    } else {
+      setfinprice(parseInt(foodadd.price));
     }
-    else if (count == 1) {
-      setfinprice(parseInt(foodadd.price))
-    }
-    else {
-      setfinprice(parseInt(foodadd.price))
-    }
-  }, [foodadd.Price, count])
-  
+  }, [foodadd.Price, count]);
 
-  const orderfn = ((a) => {
+  const orderfn = (a) => {
     console.log("working state");
-    setplaceorder({ ...placeorder, [a.target.name]: a.target.value,Finalprice: finprice,Quantity:count })
+    setplaceorder({
+      ...placeorder,
+      [a.target.name]: a.target.value,
+      Finalprice: finprice,
+      Quantity: count,
+    });
     console.log("place", placeorder);
-  })
-
+  };
 
   useEffect(() => {
-    axios.post(`http://localhost:3900/viewone/${id.id}`)
-      .then(result => {
-        setfoodadd(result.data.msg)
+    axios
+      .post(`http://localhost:3900/viewone/${id.id}`)
+      .then((result) => {
+        setfoodadd(result.data.msg);
         console.log(result.data.msg);
         console.log(result);
       })
-      .catch(err => {
-        alert("error")
+      .catch((err) => {
+        alert("error");
         console.log(err);
-      })
-
-  }, [])
+      });
+  }, []);
 
   const subfn = (a) => {
-    a.preventDefault()
+    a.preventDefault();
     console.log("order", placeorder);
-    axios.post(`http://localhost:3900/orders`, placeorder)
-      .then(result => {
+    axios
+      .post(`http://localhost:3900/orders`, placeorder)
+      .then((result) => {
         console.log(result);
         if (result.request.status == 200) {
-          alert("Order succesfully added")
-          navigate("/userhome")
+          alert("Order succesfully added");
+          navigate("/userhome");
           // window.location.reload(false);
-
-        }
-        else {
-          alert("error")
+        } else {
+          alert("error");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-        alert("error")
-      })
-  }
+        alert("error");
+      });
+  };
 
   // console.log(id.id);
 
-
-
   return (
-    <div>
-
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+    //   height: '100vh' 
+    }}>
       {/* <nav class="navbar navbar-expand-lg bg-body-tertiary" >
         <div class="container-fluid"  >
           <a class="navbar-brand" href="#"></a>
@@ -130,74 +126,156 @@ const navigate=useNavigate()
         </div>
       </nav> */}
 
-
-
-
-
-
       <form onSubmit={subfn}>
-
-        <div id='prdt1'>
-          <div><h2 id='prdt2'>ORDER  NOW</h2></div>
-          <div><img src={`http://localhost:3900/${foodadd.img}`} alt='images' id='imgpdtv'></img></div>
-          <div id='prdt3'><h4>{foodadd.Foodname}</h4></div>
-          <div id='prdt4'><h6>{foodadd.Resturantname}</h6></div>
+        <div id="prdt1">
+          <div>
+            <h2 id="prdt2">ORDER NOW</h2>
+          </div>
+          <div>
+            <img
+              src={`http://localhost:3900/${foodadd.img}`}
+              alt="images"
+              id="imgpdtv"
+            ></img>
+          </div>
+          <div id="prdt3">
+            <h4>{foodadd.Foodname}</h4>
+          </div>
+          <div id="prdt4">
+            <h6>{foodadd.Resturantname}</h6>
+          </div>
           {/* <div id='prdt4'><h6 >₹{parseInt(finprice)}</h6></div> */}
-          <div id='prdt4'>₹<input type='number' value={finprice} name='Finalprice' onChange={orderfn} id='inpfin' /></div>
-          <div id='prdt4'><h6>{foodadd.Details}</h6></div>
+          <div id="prdt4">
+            ₹
+            <input
+              type="number"
+              value={finprice}
+              name="Finalprice"
+              onChange={orderfn}
+              id="inpfin"
+            />
+          </div>
+          <div id="prdt4">
+            <h6>{foodadd.Details}</h6>
+          </div>
 
-          <div id='dd' >
-            <tr >
+          <div id="dd">
+            <tr>
               <td>Count : </td>
-              <td  ><button type='button' onClick={DecrementItem}>-</button></td>
-              <td><input type='number' name="Quantity" value={count} onChange={orderfn}
-                // ,price:a.target.value*foodadd.price
-                id='orde6'></input></td>
-              <td><button type='button' onClick={IncrementItem}>+</button></td>
+              <td>
+                <button type="button" onClick={DecrementItem}>
+                  -
+                </button>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name="Quantity"
+                  value={count}
+                  onChange={orderfn}
+                  // ,price:a.target.value*foodadd.price
+                  id="orde6"
+                ></input>
+              </td>
+              <td>
+                <button type="button" onClick={IncrementItem}>
+                  +
+                </button>
+              </td>
             </tr>
           </div>
           <div>
             <tr>
-              <td><div id='orde7'>Payment Type : </div></td>
-              <td><div id='orde10'>
-                <input type='radio' name='Paymenttype' value="Creditcard" onChange={orderfn} />CreditCard
-                <input type='radio' name='Paymenttype' value="Cash On Delivery" onChange={orderfn} />CashOnDelivery
-              </div></td>
+              <td>
+                <div id="orde7">Payment Type : </div>
+              </td>
+              <td>
+                <div id="orde10">
+                  <input
+                    type="radio"
+                    name="Paymenttype"
+                    value="Creditcard"
+                    onChange={orderfn}
+                  />
+                  CreditCard
+                  <input
+                    type="radio"
+                    name="Paymenttype"
+                    value="Cash On Delivery"
+                    onChange={orderfn}
+                  />
+                  CashOnDelivery
+                </div>
+              </td>
             </tr>
           </div>
 
-
-{placeorder.Paymenttype === 'Creditcard' &&(
-
-<div>
-        <div><tr>
-          <td><label>Card Number:</label></td>
-          <td><input type='number' id='fld1' name='Credno' placeholder="Enter your card number" value={placeorder.Credno} onChange={orderfn}/></td></tr>
-        </div>
-        <div><tr>
-          
-        <td><label>Order Address:</label></td>
-          <td><textarea rows="2" cols="25" id='fld' name='Finaddress' value={placeorder.Finaddress} onChange={orderfn}/></td></tr>
-
-        </div>
-        </div>
+          {placeorder.Paymenttype === "Creditcard" && (
+            <div>
+              <div>
+                <tr>
+                  <td>
+                    <label>Card Number:</label>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      id="fld1"
+                      name="Credno"
+                      placeholder="Enter your card number"
+                      value={placeorder.Credno}
+                      onChange={orderfn}
+                    />
+                  </td>
+                </tr>
+              </div>
+              <div>
+                <tr>
+                  <td>
+                    <label>Order Address:</label>
+                  </td>
+                  <td>
+                    <textarea
+                      rows="2"
+                      cols="25"
+                      id="fld"
+                      name="Finaddress"
+                      value={placeorder.Finaddress}
+                      onChange={orderfn}
+                    />
+                  </td>
+                </tr>
+              </div>
+            </div>
           )}
-{placeorder.Paymenttype ==='Cash On Delivery' &&(
-  <div>
-    <div><tr>
-          
-          <td><label>Order Address:</label></td>
-            <td><textarea rows="2" cols="25" id='fld' name='Finaddress' value={placeorder.Finaddress} onChange={orderfn}/></td></tr>
-  
-          </div>
-    </div>
-)}
-          <button type='submit' id='ordbtn' class="btn btn-success" >Place Order</button>
+          {placeorder.Paymenttype === "Cash On Delivery" && (
+            <div>
+              <div>
+                <tr>
+                  <td>
+                    <label>Order Address:</label>
+                  </td>
+                  <td>
+                    <textarea
+                      rows="2"
+                      cols="25"
+                      id="fld"
+                      name="Finaddress"
+                      value={placeorder.Finaddress}
+                      onChange={orderfn}
+                    />
+                  </td>
+                </tr>
+              </div>
+            </div>
+          )}
+          <button type="submit" id="ordbtn" class="btn btn-success">
+            Place Order
+          </button>
         </div>
       </form>
-
     </div>
-  )
+  );
 }
 
-export default Userproductview
+export default Userproductview;

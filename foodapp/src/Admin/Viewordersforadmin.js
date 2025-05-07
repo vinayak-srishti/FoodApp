@@ -64,7 +64,12 @@ useEffect(()=>{
                     </div>
                 </div>
             </nav>
-
+<div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+    //   height: '100vh' 
+    }}>
     <div id='vord1'>
         <tr>
             <th id='vord2'>Customer Name</th>
@@ -77,18 +82,18 @@ useEffect(()=>{
             <th>  </th>
         </tr>
         {orderview.length ?(
-            orderview.map((details)=>{
+            orderview?.map((details)=>{
                 return (
 
 
         <tr id='plord3'>
-             <td id='tble'>{details.userid.Name}</td>
-             <td id='tble'>{details.Finaddress}</td>
-             <td id='tble'>{details.stockid.Foodname}</td>
-            <td id='tble'>{details.stockid.Resturantname}</td>
-            <td id='tble'>{details.Quantity}</td>
-             <td id='tble'>{details.Finalprice}</td>
-             <td id='tble'>{details.Paymenttype}</td>
+             <td id='tble'>{details?.userid?.Name}</td>
+             <td id='tble'>{details?.Finaddress}</td>
+             <td id='tble'>{details?.stockid?.Foodname}</td>
+            <td id='tble'>{details?.stockid?.Resturantname}</td>
+            <td id='tble'>{details?.Quantity}</td>
+             <td id='tble'>{details?.Finalprice}</td>
+             <td id='tble'>{details?.Paymenttype}</td>
          </tr>
           );
         },[])
@@ -96,7 +101,7 @@ useEffect(()=>{
             <div><h5>No Data available</h5></div>
      )}
     </div>
-
+</div>
 
 
 

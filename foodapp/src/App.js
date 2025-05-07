@@ -30,29 +30,35 @@ function App() {
     <div>
       <BrowserRouter>
       <Routes>
+
+        {/* User */}
+
         <Route path='/' element={[<Header/>,<Homepage/>]}></Route>
         <Route path='/userlogin' element={[<Header/>,<Userlogin/>]}></Route>
         <Route path='/userreg' element={[<Header/>,<Userregister/>]}></Route>
-        <Route path='/admin' element={<Admin/>}></Route>
         <Route path='/userhome' element={[<HeaderaftLogin/>,<Userhome/>]}></Route>
-        <Route path='/nav' element={<Nav/>}></Route>
         <Route path='/userproductview/:id' element={[<HeaderaftLogin/>,<Userproductview/>]}></Route>
         <Route path='/vieworderbycust/:id' element={[<HeaderaftLogin/>,<Viewordercust/>]}></Route>
         <Route path='/custprof' element={[<HeaderaftLogin/>,<Viewcustprof/>]}></Route>
         <Route path='/order' element={[<HeaderaftLogin/>,<Finordcard/>]}></Route>
-              <Route path='/adminhome' element={<Adminhome/>}></Route>
-              <Route path='/addfood' element={<Addfood/>}></Route>
-              <Route path='/admincustview' element={<Adminviewcustomers/>}></Route>
-              <Route path='/deletefood' element={<Deletefood/>}></Route>
-              <Route path='/update/:id'element={<Update/>}></Route>
-              <Route path='/viewusersadmin' element={<Viewordersforadmin/>}></Route>
+
+        {/* Admin */}
+
+        <Route path='/admin' element={<Admin/>}></Route>
+        <Route path='/adminhome' element={<Adminhome/>}></Route>
+        <Route path='/addfood' element={<Addfood/>}></Route>
+        <Route path='/admincustview' element={<Adminviewcustomers/>}></Route>
+        <Route path='/deletefood' element={<Deletefood/>}></Route>
+        <Route path='/update/:id'element={<Update/>}></Route>
+        <Route path='/viewusersadmin' element={<Viewordersforadmin/>}></Route>
 
 
-      <Route path='/Example' element={<Exqmple1/>}></Route>
 
 
-      <Route path='/navbar' element={<Header/>}/>
-      <Route path='/afterLogin' element={<HeaderaftLogin/>}/>
+        <Route path='/navbar' element={<Header/>}/>
+        <Route path='/nav' element={<Nav/>}></Route>
+        <Route path='/afterLogin' element={<HeaderaftLogin/>}/>
+
       </Routes>
       </BrowserRouter>
     </div>

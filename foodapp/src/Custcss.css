@@ -257,8 +257,9 @@ color: aqua;
                 height: 18cm;
                 background-color: rgba(130, 139, 0, 0.884);
                 position:relative;
-                margin-left: 400px;
-                margin-top: 10px;
+                /* margin-left: 400px; */
+                /* margin-top: 10px; */
+                border-radius: 13px;
             }
             #prdt2{
                 text-align: center;
@@ -330,10 +331,12 @@ color: aqua;
 
         #adminvc{
             width: 20cm;
-            height: 10cm;
+            min-height: 10cm;
+            max-height: fit-content;
             background-color: aqua;
-            margin-left: 200px;
+            /* margin-left: 200px; */
             margin-top: 40px;
+            border-radius: 12px;
         }
         #cn1{
            padding-left: 20px;
@@ -345,15 +348,17 @@ color: aqua;
             width: 23cm;
             height: 10cm;
             background-color: aqua;
-            margin-left: 200px;
+            /* margin-left: 200px; */
             margin-top: 40px;
+            border-radius: 13px;
         }
     #updt1{
         width: 15cm;
         height: 13cm;
         background-color: aquamarine;
-        margin-left: 300px;
+        /* margin-left: 300px; */
         margin-top: 40px;
+        border-radius: 13px;
     }
     #updt2{
         text-align: center;
@@ -401,8 +406,10 @@ color: aqua;
  #vord1{
     width: 33.2cm;
     height: 15cm;
-    background-color:rgb(227, 255, 127) ;
-    margin-left: 0px;
+    background-color:rgb(146, 255, 127) ;
+    /* margin-left: 0px; */
+    margin-top: 40px;
+    border-radius: 13px;
  }
  #vord2{
     padding-left: 30px;
@@ -535,4 +542,20 @@ ul {
     background-color: #e8dbdb ;
     height: 70px;
   }
-  
+  .head_mianAdmin{
+    text-align: center;
+    padding-top: 200px;
+    font-size: 60px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #95adbe;
+  }
+  .main_Backdround{
+    background-color: #090606a5;
+    height: 100vh;
+  }
+  .p_adminMain{
+    text-align: center;
+    color: #e8dbdb;
+    font-size: 30px;
+    font-style: italic;
+  }

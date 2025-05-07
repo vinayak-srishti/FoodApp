@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Adminhome() {
     return (
-        <div>
+        <div className='main_Backdround'>
             <nav class="navbar navbar-expand-lg bg-body-tertiary" >
                 <div class="container-fluid"  >
                     <a class="navbar-brand" href="#"></a>
@@ -36,7 +36,12 @@ function Adminhome() {
 
 
             <div>
-
+                <h3 className='head_mianAdmin'>
+                    Welcome to FoodNetworkingApp
+                </h3>
+                <p className='p_adminMain'>
+                    Welcome Admin
+                </p>
             </div>
         </div>
     )
